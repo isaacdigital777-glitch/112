@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISAAC DIGITAL • Premium Digital Creations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=Inter:wght@400;500;600&amp;display=swap');
+        
+        :root {
+            --gold: 212 175 119;
+        }
+        
+        .tail-container {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Playfair Display', sans-serif;
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, #f9f5f0 0%, #f0e9dd 100%);
+        }
+
+        .product-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+        }
+
+        .category-card {
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        
+        .category-card:hover {
+            transform: scale(1.04);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1.5px;
+            bottom: -2px;
+            left: 0;
+            background-color: rgb(212 175 119);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        .luxury-button {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .luxury-button:after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 40%;
+            height: 400%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255,255,255,0.4),
+                transparent
+            );
+            transform: skewX(-25deg);
+            animation: shimmer 4s infinite;
+        }
+
+        @keyframes shimmer {
+            100% {
+                transform: translateX(400%);
+            }
+        }
+
+        .mockup-book {
+            box-shadow: 15px 25px 40px -15px rgb(0 0 0 / 0.3),
+                        0 10px 15px -3px rgb(0 0 0 / 0.1);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .mockup-book:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .section-header {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header:after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(to right, rgb(212 175 119), transparent);
+            bottom: -6px;
+            left: 20%;
+        }
+
+        .gold-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgb(212 175 119 / 0.3), transparent);
+        }
+
+        .product-img-container {
+            background: linear-gradient(135deg, #f3e9d8, #e8d9c2);
+        }
+    </style>
+</head>
+<body class="tail-container text-[#2c2c2c] bg-[#f9f5f0] overflow-x-hidden">
+    <!-- NAVBAR -->
+    <nav class="bg-white border-b border-[#e8d9c2] fixed w-full z-50">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="flex items-center justify-between px-8 py-6">
+                <!-- LOGO -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-7 h-7 bg-[#2c2c2c] rounded-2xl flex items-center justify-center text-[#f9f5f0] text-xs font-bold leading-none pt-0.5">ID</div>
+                    <div>
+                        <span class="heading-font text-3xl tracking-tighter font-semibold">ISAAC</span>
+                        <span class="heading-font text-3xl tracking-tighter font-light text-[#8c6d3f]">DIGITAL</span>
+                    </div>
+                </div>
+
+                <!-- MENU -->
+                <div class="hidden md:flex items-center gap-x-10 text-sm font-medium">
+                    <a href="#" onclick="smoothScrollTo('categories')" class="nav-link cursor-pointer">SHOP</a>
+                    <a href="#" onclick="smoothScrollTo('categories')" class="nav-link cursor-pointer">CATEGORIES</a>
+                    <a href="#" onclick="smoothScrollTo('bestsellers')" class="nav-link cursor-pointer">BESTSELLERS</a>
+                    <a href="#" onclick="smoothScrollTo('bundles')" class="nav-link cursor-pointer">BUNDLES</a>
+                    <a href="#" onclick="smoothScrollTo('about')" class="nav-link cursor-pointer">ABOUT</a>
+                </div>
+
+                <div class="flex items-center gap-x-6">
+                    <button onclick="toggleSearch()" 
+                            class="w-10 h-10 flex items-center justify-center hover:bg-[#f0e9dd] rounded-2xl transition-colors">
+                        <i class="fa-solid fa-magnifying-glass text-xl"></i>
+                    </button>
+                    
+                    <button onclick="toggleCart()" 
+                            class="w-10 h-10 flex items-center justify-center hover:bg-[#f0e9dd] rounded-2xl transition-colors relative">
+                        <i class="fa-solid fa-bag-shopping text-xl"></i>
+                        <span id="cart-count" 
+                              class="absolute -top-1 -right-1 bg-[#d4af77] text-[#2c2c2c] text-[10px] font-mono w-5 h-5 flex items-center justify-center rounded-full">3</span>
+                    </button>
+                    
+                    <button onclick="document.getElementById('payhip-modal').classList.remove('hidden')"
+                            class="px-6 py-3.5 text-xs font-semibold tracking-widest border border-[#2c2c2c] hover:bg-[#2c2c2c] hover:text-white transition-all rounded-3xl">
+                        STORE
+                    </button>
+                    
+                    <!-- MOBILE HAMBURGER -->
+                    <button id="mobile-menu-btn"
+                            class="md:hidden w-10 h-10 flex items-center justify-center text-2xl">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MOBILE MENU -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-8 py-8 flex flex-col gap-y-6 text-lg">
+                <a href="#" onclick="toggleMobileMenu()" class="nav-link">Shop All</a>
+                <a href="#" onclick="toggleMobileMenu();smoothScrollTo('categories')" class="nav-link">Categories</a>
+                <a href="#" onclick="toggleMobileMenu();smoothScrollTo('bestsellers')" class="nav-link">Best Sellers</a>
+                <a href="#" onclick="toggleMobileMenu();smoothScrollTo('bundles')" class="nav-link">Bundles</a>
+                <a href="#" onclick="toggleMobileMenu();smoothScrollTo('about')" class="nav-link">Our Story</a>
+                <div class="pt-6 border-t flex flex-col gap-y-4">
+                    <button onclick="toggleMobileMenu();document.getElementById('payhip-modal').classList.remove('hidden')" 
+                            class="w-full py-6 bg-[#2c2c2c] text-white rounded-3xl text-sm tracking-widest font-medium">
+                        VISIT PAYHIP STORE
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero-bg pt-24 min-h-screen flex items-center relative">
+        <div class="max-w-screen-2xl mx-auto px-6 md:px-12 grid md:grid-cols-12 gap-16 items-center">
+            <!-- LEFT CONTENT -->
+            <div class="md:col-span-6 pt-12 md:pt-0">
+                <div class="inline-flex items-center gap-x-2 bg-white shadow-inner rounded-3xl px-5 py-2 text-xs tracking-[1px] font-medium mb-8">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                    NEW: WINTER 2025 COLLECTION
+                </div>
+                
+                <h1 class="heading-font text-[3.1rem] md:text-[3.8rem] leading-[1.05] tracking-tighter font-medium text-[#2c2c2c]">
+                    Digital Products Designed to Inspire, Create &amp; Elevate
+                </h1>
+                
+                <p class="mt-8 max-w-md text-[#555] text-lg leading-relaxed">
+                    Discover beautifully designed digital products made to inspire creativity, 
+                    simplify everyday life, and help you create more.
+                </p>
+                
+                <div class="mt-12 flex items-center gap-x-5">
+                    <button onclick="smoothScrollTo('featured')" 
+                            class="luxury-button px-10 py-6 bg-[#2c2c2c] hover:bg-black text-[#f9f5f0] rounded-3xl text-sm font-semibold tracking-widest transition-all shadow-xl flex items-center gap-x-3 group">
+                        <span>SHOP NOW</span>
+                        <i class="fa-solid fa-arrow-right text-lg group-active:rotate-45 transition-transform"></i>
+                    </button>
+                    
+                    <button onclick="smoothScrollTo('categories')"
+                            class="px-8 py-6 border-2 border-[#2c2c2c] hover:bg-white transition-all rounded-3xl text-sm font-medium tracking-widest">
+                        EXPLORE COLLECTIONS
+                    </button>
+                </div>
+                
+                <div class="mt-16 flex items-center gap-x-8">
+                    <div class="flex -space-x-4">
+                        <div class="w-6 h-6 bg-[#d4af77] border-2 border-white rounded-2xl flex items-center justify-center text-[10px]">📘</div>
+                        <div class="w-6 h-6 bg-[#a3b18a] border-2 border-white rounded-2xl flex items-center justify-center text-[10px]">🖍️</div>
+                        <div class="w-6 h-6 bg-[#c8a27e] border-2 border-white rounded-2xl flex items-center justify-center text-[10px]">📅</div>
+                    </div>
+                    <div class="text-xs leading-tight">
+                        <div class="font-medium">Featured in</div>
+                        <div class="text-[#8a6642]">Forbes • Kinfolk • Design Milk</div>
+                    </div>
+                </div>
+                
+                <!-- TRUST SIGNALS -->
+                <div class="flex items-center gap-x-8 mt-20 text-[10px] font-mono tracking-widest">
+                    <div class="flex items-center gap-x-1.5">
+                        <i class="fa-solid fa-lock text-[#d4af77]"></i>
+                        <span>SECURE</span>
+                    </div>
+                    <div class="h-3 w-px bg-[#d4af77]/30"></div>
+                    <div>INSTANT ACCESS</div>
+                    <div class="h-3 w-px bg-[#d4af77]/30"></div>
+                    <div>PDF • EPUB • CANVA</div>
+                </div>
+            </div>
+            
+            <!-- RIGHT VISUAL -->
+            <div class="md:col-span-6 relative flex justify-center items-center">
+                <div class="relative w-full max-w-[420px]">
+                    <!-- Background accent -->
+                    <div class="absolute -left-6 -top-6 w-80 h-80 bg-[#d4af77]/10 rounded-[6rem] rotate-12"></div>
+                    
+                    <!-- Main product mockup stack -->
+                    <div class="relative z-10">
+                        <!-- Cookbook mockup -->
+                        <div onclick="viewProductDetail(1)" 
+                             class="mockup-book absolute -rotate-12 left-8 top-8 bg-white w-44 h-60 rounded-3xl p-3 shadow-2xl cursor-pointer">
+                            <div class="product-img-container w-full h-full rounded-2xl overflow-hidden relative">
+                                <div class="absolute inset-0 flex items-center justify-center text-4xl">🍳</div>
+                                <div class="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-t from-black/70 to-transparent"></div>
+                                <div class="absolute bottom-4 left-4 text-white text-[10px] font-medium leading-none">
+                                    THE ARTISAN<br>KITCHEN
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Planner mockup -->
+                        <div onclick="viewProductDetail(2)" 
+                             class="mockup-book absolute rotate-6 right-6 top-20 bg-white w-48 h-64 rounded-3xl p-3 shadow-2xl cursor-pointer z-20">
+                            <div class="product-img-container w-full h-full rounded-2xl p-4 flex flex-col">
+                                <div class="flex-1 bg-white border border-[#d4af77]/30 rounded-2xl flex items-center justify-center text-xs font-medium text-center leading-tight">
+                                    JAN 18<br>
+                                    <span class="block text-5xl text-[#d4af77] font-light mt-2">14</span>
+                                </div>
+                                <div class="text-center mt-8">
+                                    <div class="inline-block bg-[#2c2c2c] text-[#f9f5f0] text-[10px] px-4 py-1 rounded-3xl">INTENTIONAL DAYS</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Coloring book mockup -->
+                        <div onclick="viewProductDetail(3)" 
+                             class="mockup-book absolute -rotate-3 left-24 bottom-6 bg-white w-40 h-56 rounded-3xl p-3 shadow-2xl cursor-pointer z-10">
+                            <div class="product-img-container w-full h-full rounded-2xl overflow-hidden flex items-center justify-center text-7xl">
+                                🌸
+                            </div>
+                            <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-white shadow text-xs font-medium px-5 py-1 rounded-3xl">
+                                BLOOM
+                            </div>
+                        </div>
+                        
+                        <!-- Floating badge -->
+                        <div class="absolute -right-4 top-6 bg-white shadow-xl text-center px-5 py-4 rounded-3xl z-30">
+                            <div class="text-[#d4af77] text-xl font-light">4.98</div>
+                            <div class="text-[10px] font-medium -mt-1">avg rating</div>
+                            <div class="flex gap-x-px mt-3">
+                                <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                                <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                                <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                                <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                                <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Subtle tagline overlay -->
+                    <div class="absolute -bottom-6 right-12 bg-white/90 backdrop-blur-md px-6 py-3 rounded-3xl shadow text-xs flex items-center gap-x-2 z-40">
+                        <span class="italic text-[#8c6d3f]">Premium Digital</span>
+                        <span class="block w-px h-3 bg-[#d4af77]"></span>
+                        <span class="font-medium">CREATIONS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SCROLL INDICATOR -->
+        <div class="absolute bottom-12 left-1/2 flex flex-col items-center gap-y-2 text-[#8c6d3f]">
+            <div class="text-[10px] tracking-[2px] font-medium rotate-90 origin-bottom">SCROLL</div>
+            <i class="fa-solid fa-chevron-down text-xl animate-bounce"></i>
+        </div>
+        
+        <!-- HERO DECOR -->
+        <div class="absolute bottom-0 right-12 hidden xl:flex items-center gap-x-8 text-xs font-medium">
+            <div class="flex items-center gap-x-6">
+                <div class="px-5 py-3 bg-white/70 backdrop-blur rounded-3xl shadow-inner flex items-center gap-x-3">
+                    <i class="fa-solid fa-download text-[#d4af77]"></i>
+                    <div>
+                        <div class="text-[10px]">Downloaded</div>
+                        <div class="font-semibold text-sm">18k times</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- TRUST BAR -->
+    <div class="bg-white py-7 border-b">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <!-- Benefit 1 -->
+                <div class="flex items-center gap-x-4">
+                    <div class="w-9 h-9 bg-[#f9f5f0] flex items-center justify-center text-2xl rounded-2xl">⚡</div>
+                    <div>
+                        <div class="text-xs font-semibold tracking-widest">INSTANT ACCESS</div>
+                        <div class="text-[#666] text-sm">Download immediately after purchase</div>
+                    </div>
+                </div>
+                
+                <!-- Benefit 2 -->
+                <div class="flex items-center gap-x-4">
+                    <div class="w-9 h-9 bg-[#f9f5f0] flex items-center justify-center text-2xl rounded-2xl">✦</div>
+                    <div>
+                        <div class="text-xs font-semibold tracking-widest">PREMIUM DESIGNS</div>
+                        <div class="text-[#666] text-sm">Meticulously crafted by professionals</div>
+                    </div>
+                </div>
+                
+                <!-- Benefit 3 -->
+                <div class="flex items-center gap-x-4">
+                    <div class="w-9 h-9 bg-[#f9f5f0] flex items-center justify-center text-2xl rounded-2xl">$</div>
+                    <div>
+                        <div class="text-xs font-semibold tracking-widest">LUXURY VALUE</div>
+                        <div class="text-[#666] text-sm">High quality at accessible prices</div>
+                    </div>
+                </div>
+                
+                <!-- Benefit 4 -->
+                <div class="flex items-center gap-x-4">
+                    <div class="w-9 h-9 bg-[#f9f5f0] flex items-center justify-center text-2xl rounded-2xl">⟳</div>
+                    <div>
+                        <div class="text-xs font-semibold tracking-widest">FRESH DROPS</div>
+                        <div class="text-[#666] text-sm">New products added every month</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CATEGORIES -->
+    <section id="categories" class="max-w-screen-2xl mx-auto px-8 pt-20 pb-16">
+        <div class="flex items-end justify-between mb-12">
+            <div>
+                <span class="px-4 py-2 text-xs bg-[#f0e9dd] text-[#8c6d3f] rounded-3xl font-medium">CATEGORIES</span>
+                <h2 class="heading-font text-5xl tracking-tighter mt-3">Shop by Collection</h2>
+            </div>
+            <a onclick="smoothScrollTo('featured')" 
+               class="hidden md:flex items-center text-sm gap-x-2 group cursor-pointer">
+                <span class="group-hover:underline">All products</span> 
+                <span class="text-xl transition-transform group-hover:translate-x-1">→</span>
+            </a>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            <!-- Category 1 -->
+            <div onclick="filterByCategory(0)" 
+                 class="category-card bg-white rounded-3xl overflow-hidden cursor-pointer border border-transparent hover:border-[#d4af77]/30">
+                <div class="h-60 bg-[#f9e8d3] flex items-center justify-center text-7xl">🍝</div>
+                <div class="p-6">
+                    <div class="uppercase text-xs tracking-widest text-[#a17c4f]">Cookbooks &amp; Recipes</div>
+                    <div class="heading-font text-2xl font-medium mt-1">Kitchen Codex</div>
+                    <button class="mt-6 text-xs flex items-center gap-x-2 text-[#8c6d3f]">
+                        <span>BROWSE</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Category 2 -->
+            <div onclick="filterByCategory(1)" 
+                 class="category-card bg-white rounded-3xl overflow-hidden cursor-pointer border border-transparent hover:border-[#d4af77]/30">
+                <div class="h-60 bg-[#e6f0e0] flex items-center justify-center text-7xl">🦋</div>
+                <div class="p-6">
+                    <div class="uppercase text-xs tracking-widest text-[#6d8c4f]">Coloring &amp; Activity</div>
+                    <div class="heading-font text-2xl font-medium mt-1">Mindful Marks</div>
+                    <button class="mt-6 text-xs flex items-center gap-x-2 text-[#8c6d3f]">
+                        <span>BROWSE</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Category 3 -->
+            <div onclick="filterByCategory(2)" 
+                 class="category-card bg-white rounded-3xl overflow-hidden cursor-pointer border border-transparent hover:border-[#d4af77]/30">
+                <div class="h-60 bg-[#f0e9dd] flex items-center justify-center text-7xl">🗓️</div>
+                <div class="p-6">
+                    <div class="uppercase text-xs tracking-widest text-[#8c6d3f]">Planners &amp; Printables</div>
+                    <div class="heading-font text-2xl font-medium mt-1">Intentional Living</div>
+                    <button class="mt-6 text-xs flex items-center gap-x-2 text-[#8c6d3f]">
+                        <span>BROWSE</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Category 4 -->
+            <div onclick="filterByCategory(3)" 
+                 class="category-card bg-white rounded-3xl overflow-hidden cursor-pointer border border-transparent hover:border-[#d4af77]/30">
+                <div class="h-60 bg-[#e8e1f0] flex items-center justify-center text-7xl">📊</div>
+                <div class="p-6">
+                    <div class="uppercase text-xs tracking-widest text-[#5e4a8c]">Productivity &amp; Business</div>
+                    <div class="heading-font text-2xl font-medium mt-1">Focus Systems</div>
+                    <button class="mt-6 text-xs flex items-center gap-x-2 text-[#8c6d3f]">
+                        <span>BROWSE</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Category 5 -->
+            <div onclick="filterByCategory(4)" 
+                 class="category-card bg-white rounded-3xl overflow-hidden cursor-pointer border border-transparent hover:border-[#d4af77]/30">
+                <div class="h-60 bg-[#f0d8d8] flex items-center justify-center text-7xl">📖</div>
+                <div class="p-6">
+                    <div class="uppercase text-xs tracking-widest text-[#8c4f4f]">Ebooks &amp; Guides</div>
+                    <div class="heading-font text-2xl font-medium mt-1">Wisdom Library</div>
+                    <button class="mt-6 text-xs flex items-center gap-x-2 text-[#8c6d3f]">
+                        <span>BROWSE</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Category 6 -->
+            <div onclick="filterByCategory(5)" 
+                 class="category-card bg-white rounded-3xl overflow-hidden cursor-pointer border border-transparent hover:border-[#d4af77]/30">
+                <div class="h-60 bg-[#d8e8f0] flex items-center justify-center text-7xl">🎨</div>
+                <div class="p-6">
+                    <div class="uppercase text-xs tracking-widest text-[#4f6e8c]">Creative Digital</div>
+                    <div class="heading-font text-2xl font-medium mt-1">Prompt Vault</div>
+                    <button class="mt-6 text-xs flex items-center gap-x-2 text-[#8c6d3f]">
+                        <span>BROWSE</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS -->
+    <section id="featured" class="bg-white py-20">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex justify-between items-baseline mb-10">
+                <div class="section-header">
+                    <span class="text-[#d4af77] text-sm font-medium">CURATED FOR YOU</span>
+                    <h2 class="heading-font text-4xl tracking-tight">Featured Products</h2>
+                </div>
+                <button onclick="showAllProducts()" 
+                        class="text-xs flex items-center gap-x-3 group">
+                    <span class="uppercase tracking-widest">View all</span>
+                    <div class="transition-all group-active:rotate-45">
+                        →
+                    </div>
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" id="featured-grid">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- BEST SELLERS -->
+    <section id="bestsellers" class="max-w-screen-2xl mx-auto px-8 py-20 bg-[#f9f5f0]">
+        <div class="flex flex-col md:flex-row gap-16">
+            <!-- Left label -->
+            <div class="md:w-64 shrink-0">
+                <div class="sticky top-28">
+                    <div class="inline px-5 py-1.5 text-xs bg-[#2c2c2c] text-white rounded-3xl">BEST SELLERS</div>
+                    <h2 class="heading-font text-5xl tracking-tighter leading-none mt-4">Our most loved digital creations</h2>
+                    <p class="text-[#666] mt-6 text-base max-w-[210px]">
+                        Trusted by thousands of creators, makers, and dreamers worldwide.
+                    </p>
+                    <button onclick="smoothScrollTo('featured')"
+                            class="mt-10 px-7 py-5 border border-[#2c2c2c] text-xs font-medium rounded-3xl hover:bg-[#2c2c2c] hover:text-white transition-colors">
+                        SEE THE FULL LIST
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Best seller cards -->
+            <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="bestsellers-grid">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- SPECIAL BUNDLES -->
+    <section id="bundles" class="max-w-screen-2xl mx-auto px-8 py-20 bg-white">
+        <div class="flex items-center justify-center gap-x-2 mb-3">
+            <div class="h-px w-8 bg-[#d4af77]"></div>
+            <span class="uppercase text-xs font-medium text-[#d4af77]">LIMITED BUNDLES</span>
+            <div class="h-px w-8 bg-[#d4af77]"></div>
+        </div>
+        
+        <h2 class="heading-font text-center text-5xl tracking-tighter">More Value. More Inspiration.</h2>
+        
+        <div class="mt-16 grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <!-- Bundle 1 -->
+            <div class="product-card bg-[#f9f5f0] border border-[#e8d9c2] rounded-3xl p-2">
+                <div class="bg-white rounded-3xl p-8">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="px-4 text-xs py-2 bg-amber-100 text-amber-700 rounded-3xl">SAVE 35%</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="line-through text-xs text-[#aaa]">$92</div>
+                            <div class="text-4xl font-light text-[#2c2c2c]">$59</div>
+                        </div>
+                    </div>
+                    
+                    <div class="my-8 h-px bg-[#e8d9c2]"></div>
+                    
+                    <div class="space-y-6">
+                        <div class="flex gap-x-4 items-center">
+                            <div class="w-12 h-12 bg-[#f3e0c2] rounded-2xl flex items-center justify-center text-3xl">📘</div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">The Artisan Kitchen</div>
+                                <div class="text-xs text-[#666]">Digital cookbook</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-x-4 items-center">
+                            <div class="w-12 h-12 bg-[#e0f0e0] rounded-2xl flex items-center justify-center text-3xl">📓</div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">Intentional Planner</div>
+                                <div class="text-xs text-[#666]">2025 edition</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-x-4 items-center">
+                            <div class="w-12 h-12 bg-[#e0e8f0] rounded-2xl flex items-center justify-center text-3xl">🌿</div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">Botanical Journal</div>
+                                <div class="text-xs text-[#666]">Prompt deck</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="addBundleToCart()" 
+                            class="luxury-button mt-10 w-full py-7 bg-[#2c2c2c] text-white text-xs tracking-[0.125em] rounded-3xl">
+                        ADD CREATOR BUNDLE — $59
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Bundle 2 -->
+            <div class="product-card bg-[#f9f5f0] border border-[#e8d9c2] rounded-3xl p-2 relative">
+                <div class="absolute -top-3 right-6 bg-[#d4af77] text-[#2c2c2c] text-xs font-bold px-6 py-1 rounded-3xl shadow-inner">STAFF FAV</div>
+                <div class="bg-white rounded-3xl p-8">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="px-4 text-xs py-2 bg-teal-100 text-teal-700 rounded-3xl">SAVE 42%</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="line-through text-xs text-[#aaa]">$68</div>
+                            <div class="text-4xl font-light text-[#2c2c2c]">$39</div>
+                        </div>
+                    </div>
+                    
+                    <div class="my-8 h-px bg-[#e8d9c2]"></div>
+                    
+                    <div class="space-y-8">
+                        <div class="flex gap-x-6">
+                            <div>📗</div>
+                            <div class="text-sm">Mindful Recipe Vault + Coloring Anthology</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-auto pt-12">
+                        <button onclick="addBundleToCart(2)" 
+                                class="luxury-button w-full py-7 bg-[#2c2c2c] text-white text-xs tracking-[0.125em] rounded-3xl">
+                            GET THE WELLNESS BUNDLE — $39
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bundle 3 -->
+            <div class="product-card bg-[#f9f5f0] border border-[#e8d9c2] rounded-3xl p-2">
+                <div class="bg-white rounded-3xl p-8">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="px-4 text-xs py-2 bg-violet-100 text-violet-700 rounded-3xl">POPULAR</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="line-through text-xs text-[#aaa]">$115</div>
+                            <div class="text-4xl font-light text-[#2c2c2c]">$77</div>
+                        </div>
+                    </div>
+                    
+                    <div class="my-8 h-px bg-[#e8d9c2]"></div>
+                    
+                    <div class="text-sm leading-snug font-light">
+                        Everything you need to start 2025 with intention. Includes planner, productivity ebook, journal prompts and recipe templates.
+                    </div>
+                    
+                    <div class="mt-16 text-xs flex items-center justify-center gap-x-5 text-[#8c6d3f]">
+                        <div class="flex items-center">
+                            <span class="font-semibold">6</span>
+                            <span class="ml-1">products</span>
+                        </div>
+                        <div class="h-px w-8 bg-[#d4af77]"></div>
+                        <div class="uppercase">Ultimate starter kit</div>
+                    </div>
+                    
+                    <button onclick="addBundleToCart(3)" 
+                            class="luxury-button mt-8 w-full py-7 bg-[#2c2c2c] text-white text-xs tracking-[0.125em] rounded-3xl">
+                        SHOP ULTIMATE KIT — $77
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW ARRIVALS -->
+    <section class="max-w-screen-2xl mx-auto px-8 py-20 bg-[#f9f5f0]">
+        <div class="flex items-baseline justify-between mb-8">
+            <div class="flex items-center gap-x-4">
+                <span class="text-emerald-600 text-sm font-semibold">●</span>
+                <h2 class="heading-font text-4xl tracking-tighter">Just Released</h2>
+            </div>
+            <p class="max-w-xs text-sm text-[#555] hidden lg:block">
+                Fresh digital creations, made for you. Updated every two weeks.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-2 lg:grid-cols-5 gap-6" id="new-arrivals-grid">
+            <!-- Populated by JS -->
+        </div>
+    </section>
+
+    <!-- LIMITED TIME OFFERS -->
+    <div class="bg-[#2c2c2c] text-[#f0e9dd] py-12">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="rounded-3xl bg-[#1f1f1f] p-10 md:p-16 flex flex-col md:flex-row items-center gap-8 md:gap-16">
+                <div class="flex-1">
+                    <div class="flex items-center gap-x-3">
+                        <span class="text-xs uppercase font-semibold bg-red-500 text-white px-5 py-3 rounded-3xl inline-block">ENDS IN</span>
+                        <div id="countdown" class="font-mono text-6xl tabular-nums">47:12:09</div>
+                    </div>
+                    <h2 class="heading-font text-white text-5xl mt-6 tracking-tighter">Special Digital Deals</h2>
+                    <p class="mt-4 text-[#c3b8a8] max-w-xs">
+                        Get 25% off our most popular productivity and mindfulness bundles. 
+                        Offer ends soon.
+                    </p>
+                    <button onclick="document.getElementById('payhip-modal').classList.remove('hidden')"
+                            class="mt-10 px-12 py-6 bg-[#d4af77] text-[#2c2c2c] font-semibold rounded-3xl text-sm tracking-wider hover:scale-105 transition-transform">
+                        VIEW SPECIAL OFFERS
+                    </button>
+                </div>
+                
+                <div class="flex-1 grid grid-cols-2 gap-6">
+                    <div class="bg-[#2c2c2c] border border-[#d4af77]/30 rounded-3xl p-6">
+                        <div class="text-xs opacity-60">PRODUCTIVITY OS</div>
+                        <div class="text-2xl font-medium mt-2">Digital Planner + Notion Templates</div>
+                        <div class="flex justify-between items-end mt-12">
+                            <div>
+                                <span class="line-through opacity-30">$34</span>
+                                <span class="ml-4 text-4xl font-light">$22</span>
+                            </div>
+                            <div class="text-xs bg-[#d4af77] text-black px-4 py-2 rounded-3xl">25% OFF</div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-[#2c2c2c] border border-[#d4af77]/30 rounded-3xl p-6">
+                        <div class="text-xs opacity-60">MINDFUL LIVING</div>
+                        <div class="text-2xl font-medium mt-2">Journal + Coloring Book</div>
+                        <div class="flex justify-between items-end mt-12">
+                            <div>
+                                <span class="line-through opacity-30">$29</span>
+                                <span class="ml-4 text-4xl font-light">$19</span>
+                            </div>
+                            <div class="text-xs bg-[#d4af77] text-black px-4 py-2 rounded-3xl">25% OFF</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT THE BRAND -->
+    <section id="about" class="max-w-screen-2xl mx-auto px-8 py-24">
+        <div class="grid md:grid-cols-12 gap-x-20 items-center">
+            <div class="md:col-span-5">
+                <div class="aspect-square bg-[#f0e9dd] rounded-3xl flex items-center justify-center text-[180px] leading-none">🜁</div>
+            </div>
+            <div class="md:col-span-7 mt-12 md:mt-0">
+                <div class="max-w-lg">
+                    <span class="font-medium text-[#8c6d3f]">WELCOME TO ISAAC DIGITAL</span>
+                    <h2 class="heading-font text-6xl tracking-tighter leading-none mt-4">
+                        Thoughtfully crafted digital tools for the modern maker.
+                    </h2>
+                    
+                    <div class="prose text-[#555] mt-10">
+                        <p class="text-lg">
+                            Founded in 2021, ISAAC DIGITAL exists to create beautiful, functional digital products 
+                            that help you live more intentionally. From digital cookbooks to productivity planners, 
+                            every product is designed with love and intention.
+                        </p>
+                        <p class="text-lg">
+                            Our team of designers, writers and creatives work from studios in Lisbon and Kyoto, 
+                            blending European minimalism with Japanese attention to detail.
+                        </p>
+                    </div>
+                    
+                    <div class="flex items-center gap-x-8 mt-16">
+                        <div onclick="document.getElementById('payhip-modal').classList.remove('hidden')" 
+                             class="cursor-pointer border border-[#2c2c2c] px-8 py-6 text-sm rounded-3xl hover:bg-[#2c2c2c] hover:text-white transition-colors">
+                            MEET THE TEAM
+                        </div>
+                        <div class="text-xs max-w-[130px] leading-tight">
+                            “I use the ISAAC planner every single day. It’s transformed how I organize my creative work.”
+                            <div class="text-[#d4af77] mt-4">- Clara Moreau, illustrator</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY ISAAC DIGITAL -->
+    <section class="bg-white py-20">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-8 border border-[#e8d9c2] rounded-3xl">
+                    <div class="w-12 h-12 bg-[#f9f5f0] rounded-2xl flex items-center justify-center text-4xl mb-8">📐</div>
+                    <div class="font-medium text-xl">Timeless design</div>
+                    <div class="mt-6 text-[#666]">
+                        Products that never go out of style. Clean lines, elegant typography and considered details.
+                    </div>
+                    <div class="text-xs text-[#d4af77] mt-16">01 — AESTHETIC</div>
+                </div>
+                
+                <div class="p-8 border border-[#e8d9c2] rounded-3xl">
+                    <div class="w-12 h-12 bg-[#f9f5f0] rounded-2xl flex items-center justify-center text-4xl mb-8">🔄</div>
+                    <div class="font-medium text-xl">Always updatable</div>
+                    <div class="mt-6 text-[#666]">
+                        Digital files can be updated or expanded at any time. You’ll receive all future revisions for free.
+                    </div>
+                    <div class="text-xs text-[#d4af77] mt-16">02 — FLEXIBILITY</div>
+                </div>
+                
+                <div class="p-8 border border-[#e8d9c2] rounded-3xl">
+                    <div class="w-12 h-12 bg-[#f9f5f0] rounded-2xl flex items-center justify-center text-4xl mb-8">🌍</div>
+                    <div class="font-medium text-xl">Eco-conscious</div>
+                    <div class="mt-6 text-[#666]">
+                        No printing. No shipping emissions. All products are delivered instantly via digital download.
+                    </div>
+                    <div class="text-xs text-[#d4af77] mt-16">03 — SUSTAINABILITY</div>
+                </div>
+                
+                <div class="p-8 border border-[#e8d9c2] rounded-3xl">
+                    <div class="w-12 h-12 bg-[#f9f5f0] rounded-2xl flex items-center justify-center text-4xl mb-8">♻️</div>
+                    <div class="font-medium text-xl">Community first</div>
+                    <div class="mt-6 text-[#666]">
+                        Every purchase plants 12 trees and contributes to our digital literacy scholarship program.
+                    </div>
+                    <div class="text-xs text-[#d4af77] mt-16">04 — IMPACT</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FREE DIGITAL PRODUCT -->
+    <div class="bg-[#f0e9dd] py-16">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="max-w-lg mx-auto text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-white shadow-inner rounded-2xl text-4xl mb-6">🎁</div>
+                <h2 class="heading-font text-4xl">Get something free</h2>
+                <p class="mt-4 text-[#664f2e]">
+                    Join our community and receive our exclusive 30-page <span class="font-medium">“Daily Rituals”</span> journal template.
+                </p>
+                
+                <div class="mt-10">
+                    <div class="flex flex-col sm:flex-row gap-3 max-w-xs mx-auto">
+                        <input id="email-input" 
+                               type="email" 
+                               placeholder="your@email.com"
+                               class="flex-1 px-7 h-14 bg-white border border-[#d4af77]/30 focus:border-[#d4af77] rounded-3xl outline-none text-sm">
+                        <button onclick="claimFreebie()" 
+                                class="h-14 px-10 bg-[#2c2c2c] text-white rounded-3xl text-sm font-medium whitespace-nowrap">GET MY FREEBIE</button>
+                    </div>
+                    <div id="freebie-message" class="hidden text-xs text-emerald-700 mt-6 font-medium">Thank you! Check your inbox shortly.</div>
+                </div>
+                
+                <div class="text-[10px] mt-10 text-[#8c6d3f]">
+                    Zero spam. Unsubscribe anytime.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SOCIAL PROOF / FOLLOW -->
+    <section class="max-w-screen-2xl mx-auto px-8 py-20">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-y-8">
+            <div class="flex items-center gap-x-6">
+                <div class="text-sm font-medium">FOLLOW ISAAC DIGITAL</div>
+                <div class="flex gap-x-5 text-3xl">
+                    <a href="#" class="hover:text-[#d4af77] transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-[#d4af77] transition-colors"><i class="fa-brands fa-pinterest"></i></a>
+                    <a href="#" class="hover:text-[#d4af77] transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+            
+            <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#d4af77]/30 to-transparent"></div>
+            
+            <div onclick="window.open('https://www.instagram.com/isaacdigital.co/','_blank')" 
+                 class="flex items-center gap-x-2 cursor-pointer">
+                <div class="text-[#d4af77]">@isaacdigital.co</div>
+                <div class="rounded-3xl border border-[#d4af77] text-xs px-5 py-3">JOIN 142K OTHERS</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAYHIP STORE PROMO -->
+    <div onclick="document.getElementById('payhip-modal').classList.remove('hidden')" 
+         class="bg-[#2c2c2c] text-[#f9f5f0] py-8 cursor-pointer">
+        <div class="max-w-screen-2xl mx-auto px-8 flex flex-col md:flex-row items-center justify-between">
+            <div class="flex items-center gap-x-6">
+                <div class="text-[#d4af77]">
+                    <i class="fa-solid fa-store text-4xl"></i>
+                </div>
+                <div>
+                    <div class="uppercase text-xs tracking-widest">Full catalog available on</div>
+                    <div class="text-4xl heading-font tracking-tighter">Payhip Store</div>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-x-6 text-sm mt-6 md:mt-0">
+                <div class="bg-white/10 text-white px-8 py-6 rounded-3xl">BROWSE ENTIRE COLLECTION</div>
+                <div class="text-[#d4af77] text-4xl">→</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#1f1f1f] text-[#c3b8a8]">
+        <div class="max-w-screen-2xl mx-auto px-8 pt-20">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-y-16">
+                <!-- Column 1 -->
+                <div>
+                    <div class="flex items-center gap-x-2 text-white">
+                        <div class="w-6 h-6 bg-[#f9f5f0] text-[#2c2c2c] rounded-2xl flex items-center justify-center text-xs font-bold">ID</div>
+                        <span class="heading-font text-3xl">ISAAC</span>
+                    </div>
+                    <div class="text-xs mt-2 text-[#8c6642]">DIGITAL</div>
+                    
+                    <div class="text-xs mt-16 leading-loose">
+                        Premium digital products for the<br>intentional creator.
+                    </div>
+                    
+                    <div class="mt-8 text-[10px]">Lisbon • Kyoto • Remote</div>
+                </div>
+                
+                <!-- Column 2 -->
+                <div class="text-sm">
+                    <div class="uppercase text-[#8c6642] text-xs mb-6">SHOP</div>
+                    <div class="space-y-5">
+                        <div onclick="smoothScrollTo('featured')" class="cursor-pointer hover:text-white">Featured</div>
+                        <div onclick="smoothScrollTo('bestsellers')" class="cursor-pointer hover:text-white">Best Sellers</div>
+                        <div onclick="smoothScrollTo('bundles')" class="cursor-pointer hover:text-white">Bundles</div>
+                        <div class="cursor-pointer hover:text-white">New Releases</div>
+                    </div>
+                </div>
+                
+                <!-- Column 3 -->
+                <div class="text-sm">
+                    <div class="uppercase text-[#8c6642] text-xs mb-6">EXPLORE</div>
+                    <div class="space-y-5">
+                        <div class="cursor-pointer hover:text-white">Cookbooks</div>
+                        <div class="cursor-pointer hover:text-white">Planners</div>
+                        <div class="cursor-pointer hover:text-white">Journals</div>
+                        <div class="cursor-pointer hover:text-white">Coloring Books</div>
+                        <div class="cursor-pointer hover:text-white">Ebooks</div>
+                    </div>
+                </div>
+                
+                <!-- Column 4 -->
+                <div class="text-sm">
+                    <div class="uppercase text-[#8c6642] text-xs mb-6">COMPANY</div>
+                    <div class="space-y-5">
+                        <div onclick="smoothScrollTo('about')" class="cursor-pointer hover:text-white">Our Story</div>
+                        <div class="cursor-pointer hover:text-white">Journal</div>
+                        <div class="cursor-pointer hover:text-white">Wholesale</div>
+                        <div class="cursor-pointer hover:text-white">Contact</div>
+                        <div onclick="document.getElementById('payhip-modal').classList.remove('hidden')" class="cursor-pointer hover:text-white">Payhip Store</div>
+                    </div>
+                </div>
+                
+                <!-- Column 5 -->
+                <div>
+                    <div class="bg-[#2c2c2c] p-7 rounded-3xl">
+                        <div class="uppercase text-xs text-[#d4af77]">NEWSLETTER</div>
+                        <input type="text" id="footer-email" placeholder="Email address" 
+                               class="block w-full bg-transparent border-b border-[#8c6642] py-6 text-sm placeholder:text-[#8c6642] focus:outline-none">
+                        <button onclick="subscribeFooter()" 
+                                class="mt-8 text-xs bg-[#d4af77] text-[#2c2c2c] px-7 py-5 rounded-3xl">SUBSCRIBE</button>
+                    </div>
+                    
+                    <div class="flex gap-x-6 text-2xl mt-16">
+                        <i onclick="fakeSocialClick()" class="fa-brands fa-x-twitter cursor-pointer"></i>
+                        <i onclick="fakeSocialClick()" class="fa-brands fa-instagram cursor-pointer"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- BOTTOM FOOTER -->
+            <div class="gold-divider my-16"></div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center text-xs pb-8">
+                <div class="flex gap-x-6">
+                    <div class="cursor-pointer">Shipping Policy</div>
+                    <div class="cursor-pointer">Refund Policy</div>
+                    <div class="cursor-pointer">Privacy</div>
+                </div>
+                
+                <div class="mt-6 md:mt-0 text-[#8c6642]">
+                    © 2025 ISAAC DIGITAL. All Rights Reserved.
+                </div>
+                
+                <div class="mt-6 md:mt-0 flex items-center gap-x-5 text-[#8c6642]">
+                    <i class="fa-solid fa-leaf"></i>
+                    <span class="text-xs">Carbon negative since 2022</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PRODUCT DETAIL MODAL -->
+    <div onclick="if(event.target.id === 'product-modal') this.classList.add('hidden')" 
+         id="product-modal"
+         class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-[9999]">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="max-w-2xl bg-white rounded-3xl w-full mx-4 overflow-hidden">
+            <div class="flex">
+                <!-- Visual side -->
+                <div id="modal-image" 
+                     class="w-5/12 bg-[#f9e8d3] h-96 flex items-center justify-center text-8xl">
+                    <!-- JS injected -->
+                </div>
+                
+                <!-- Content -->
+                <div class="flex-1 p-8">
+                    <div onclick="document.getElementById('product-modal').classList.add('hidden')" 
+                         class="float-right text-2xl leading-none cursor-pointer">×</div>
+                    
+                    <div id="modal-category" class="uppercase text-xs text-[#d4af77]">Cookbook</div>
+                    <div id="modal-title" class="heading-font text-3xl mt-1">The Artisan Kitchen</div>
+                    
+                    <div class="flex items-center gap-x-3 mt-6">
+                        <div id="modal-price" class="text-5xl font-light">$22</div>
+                        <div class="text-xs px-4 py-1 bg-emerald-100 text-emerald-700 self-start rounded-3xl mt-3">BESTSELLER</div>
+                    </div>
+                    
+                    <div id="modal-description" class="mt-8 text-sm leading-relaxed text-[#555]">
+                        A beautifully illustrated digital cookbook with over 85 recipes from around the globe. 
+                        Includes shopping lists, meal planners and beautiful photography.
+                    </div>
+                    
+                    <div class="mt-8 grid grid-cols-3 gap-px bg-[#f0e9dd] p-px rounded-2xl text-xs">
+                        <div class="bg-white p-3 text-center rounded-[14px]">
+                            <div class="font-medium">PDF</div>
+                            <div class="text-[#888]">+ Canva</div>
+                        </div>
+                        <div class="bg-white p-3 text-center rounded-[14px]">
+                            <div class="font-medium">Instant</div>
+                            <div class="text-[#888]">Download</div>
+                        </div>
+                        <div class="bg-white p-3 text-center rounded-[14px]">
+                            <div class="font-medium">Lifetime</div>
+                            <div class="text-[#888]">Updates</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-x-4 mt-12">
+                        <button onclick="addCurrentToCart();document.getElementById('product-modal').classList.add('hidden')" 
+                                class="flex-1 py-6 bg-[#2c2c2c] text-white rounded-3xl text-sm tracking-widest">ADD TO CART — <span id="modal-price-bottom">$22</span></button>
+                        
+                        <button onclick="document.getElementById('product-modal').classList.add('hidden')" 
+                                class="flex-1 py-6 border-2 border-[#2c2c2c] rounded-3xl text-sm">SAVE FOR LATER</button>
+                    </div>
+                    
+                    <div class="text-center text-[#999] text-xs mt-8">or 4 payments of $5.50 with</div>
+                    <div class="flex justify-center gap-x-px mt-1">
+                        <div class="w-6 h-4 bg-[#3a7be0] rounded"></div>
+                        <div class="w-6 h-4 bg-[#ff5a5f] rounded -ml-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAYHIP MODAL -->
+    <div onclick="if(event.target.id === 'payhip-modal') this.classList.add('hidden')" 
+         id="payhip-modal"
+         class="hidden fixed inset-0 bg-black/70 z-[99999] flex items-center justify-center">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="bg-white max-w-md w-full mx-5 rounded-3xl overflow-hidden">
+            <div class="px-8 pt-8 pb-6 border-b">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-x-3">
+                        <span class="text-2xl">🛍️</span>
+                        <span class="font-semibold text-xl">Payhip Store</span>
+                    </div>
+                    <button onclick="document.getElementById('payhip-modal').classList.add('hidden')" 
+                            class="text-3xl text-[#999] leading-none">×</button>
+                </div>
+            </div>
+            
+            <div class="p-8">
+                <p class="text-center text-[#666]">
+                    You are being redirected to our official Payhip storefront where you can browse our entire catalog, read reviews and purchase securely.
+                </p>
+                
+                <div class="my-12 bg-[#f9f5f0] rounded-3xl p-8 text-center">
+                    <div class="mx-auto w-20 h-20 bg-white rounded-2xl shadow flex items-center justify-center text-5xl mb-6">📦</div>
+                    <div class="font-medium">Over 120 digital products</div>
+                    <div class="text-xs text-[#8c6d3f]">Instant delivery • 60-day guarantee</div>
+                </div>
+                
+                <button onclick="visitPayhipStore()" 
+                        class="w-full py-7 bg-[#2c2c2c] text-[#f9f5f0] rounded-3xl text-sm tracking-[1px]">
+                    CONTINUE TO PAYHIP STORE
+                </button>
+                
+                <div class="text-center text-xs text-[#999] mt-8">
+                    Secure checkout powered by Payhip
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MINI CART DRAWER -->
+    <div onclick="if(event.target.id === 'cart-drawer') this.classList.add('hidden')" 
+         id="cart-drawer"
+         class="hidden fixed inset-0 bg-black/30 z-[9999] flex justify-end">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="bg-white w-full max-w-xs h-full shadow-2xl flex flex-col">
+            <!-- Header -->
+            <div class="px-6 py-8 border-b flex items-center justify-between">
+                <div class="font-medium text-xl">Your cart</div>
+                <div onclick="toggleCart()" class="cursor-pointer">✕</div>
+            </div>
+            
+            <!-- Items -->
+            <div id="cart-items" class="flex-1 p-6 space-y-7 overflow-auto">
+                <!-- JS injected items -->
+            </div>
+            
+            <!-- Footer -->
+            <div class="p-6 border-t">
+                <div class="flex justify-between text-sm">
+                    <div class="text-[#777]">Subtotal</div>
+                    <div id="cart-subtotal" class="font-medium">$92.00</div>
+                </div>
+                <div class="flex justify-between text-xs text-emerald-500 mt-1">
+                    <div>You saved $31</div>
+                </div>
+                
+                <button onclick="checkout()" 
+                        class="mt-8 w-full py-6 text-xs bg-black text-white rounded-3xl">PROCEED TO CHECKOUT</button>
+                
+                <div onclick="toggleCart()" 
+                     class="text-center text-xs text-[#999] mt-6 cursor-pointer">Continue shopping</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEARCH OVERLAY -->
+    <div onclick="if(event.target.id === 'search-overlay') toggleSearch()" 
+         id="search-overlay"
+         class="hidden fixed inset-0 bg-black/60 z-[99999] flex items-start justify-center pt-28">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="bg-white w-full max-w-lg mx-4 rounded-3xl shadow-2xl">
+            <div class="relative">
+                <input id="search-input" 
+                       onkeyup="if(event.key === 'Enter') fakeSearch()"
+                       type="text" 
+                       class="w-full h-16 px-8 outline-none text-xl rounded-3xl"
+                       placeholder="Search digital products...">
+                <button onclick="toggleSearch()" 
+                        class="absolute right-8 top-1/2 -translate-y-1/2 text-xl">✕</button>
+            </div>
+            
+            <div class="px-8 py-6 text-xs border-t">
+                <div class="font-medium mb-4 text-[#8c6d3f]">TRENDING SEARCHES</div>
+                <div onclick="fakeSearch();toggleSearch()" class="flex justify-between py-4 border-b cursor-pointer">
+                    <span>Intentional planner 2025</span>
+                    <span class="text-[#d4af77]">→</span>
+                </div>
+                <div onclick="fakeSearch();toggleSearch()" class="flex justify-between py-4 border-b cursor-pointer">
+                    <span>Botanical coloring book</span>
+                    <span class="text-[#d4af77]">→</span>
+                </div>
+                <div onclick="fakeSearch();toggleSearch()" class="flex justify-between py-4 border-b cursor-pointer">
+                    <span>Productivity notion templates</span>
+                    <span class="text-[#d4af77]">→</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind script run
+        function initializeTailwind() {
+            tailwind.config = {
+                content: [],
+                theme: {
+                    extend: {}
+                }
+            }
+        }
+        
+        // Sample products
+        let products = [
+            {
+                id: 1,
+                title: "The Artisan Kitchen",
+                category: "Cookbooks",
+                price: 22,
+                oldPrice: 29,
+                emoji: "🍝",
+                badge: "BEST",
+                description: "120 seasonal recipes with shopping lists and beautiful photography."
+            },
+            {
+                id: 2,
+                title: "Intentional Days 2025",
+                category: "Planners",
+                price: 27,
+                oldPrice: null,
+                emoji: "📅",
+                badge: "",
+                description: "The complete undated planner system for a purposeful year."
+            },
+            {
+                id: 3,
+                title: "Bloom Anthology",
+                category: "Coloring",
+                price: 14,
+                oldPrice: 19,
+                emoji: "🌼",
+                badge: "NEW",
+                description: "50 intricate botanical illustrations for mindfulness."
+            },
+            {
+                id: 4,
+                title: "Focus OS",
+                category: "Productivity",
+                price: 19,
+                oldPrice: null,
+                emoji: "📌",
+                badge: "",
+                description: "Notion templates and digital systems for peak performance."
+            },
+            {
+                id: 5,
+                title: "The Creative Codex",
+                category: "Ebooks",
+                price: 15,
+                oldPrice: 22,
+                emoji: "📖",
+                badge: "",
+                description: "200 writing prompts and creative exercises in a digital journal."
+            }
+        ]
+        
+        let cart = []
+        
+        function populateFeatured() {
+            const container = document.getElementById("featured-grid")
+            container.innerHTML = ""
+            
+            products.forEach(product => {
+                const div = document.createElement("div")
+                div.className = `product-card bg-white border border-[#f0e0c5] rounded-3xl overflow-hidden cursor-pointer`
+                div.innerHTML = `
+                    <div onclick="viewProductDetail(${product.id});event.stopImmediatePropagation()" class="product-img-container h-56 flex items-center justify-center text-7xl border-b">${product.emoji}</div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="text-xs text-[#a17c4f]">${product.category}</div>
+                                <div class="font-medium text-lg leading-none mt-2">${product.title}</div>
+                            </div>
+                            ${product.badge ? `<span onclick="event.stopImmediatePropagation()" class="text-[10px] font-medium bg-amber-100 px-3 py-1 rounded-3xl text-amber-500">${product.badge}</span>` : ''}
+                        </div>
+                        <div class="mt-8 flex items-baseline justify-between">
+                            <div class="flex items-center gap-x-2">
+                                <span class="text-3xl font-light">$${product.price}</span>
+                                ${product.oldPrice ? `<span class="line-through text-xs text-[#b89e7c]">$${product.oldPrice}</span>` : ''}
+                            </div>
+                            <div onclick="quickAddToCart(${product.id}); event.stopImmediatePropagation()" 
+                                 class="text-xs bg-black text-white px-7 py-4 rounded-3xl">ADD</div>
+                        </div>
+                    </div>
+                `
+                container.appendChild(div)
+            })
+        }
+        
+        function populateBestSellers() {
+            const container = document.getElementById("bestsellers-grid")
+            container.innerHTML = ""
+            
+            // Use first 3
+            const bests = products.slice(0, 3)
+            
+            bests.forEach((product, index) => {
+                const div = document.createElement("div")
+                div.className = "product-card bg-white rounded-3xl overflow-hidden"
+                div.innerHTML = `
+                    <div class="relative">
+                        <div onclick="viewProductDetail(${product.id});event.stopImmediatePropagation()" 
+                             class="h-64 bg-gradient-to-br from-[#f9e8d3] to-[#f0d9b8] flex items-center justify-center text-8xl">${product.emoji}</div>
+                        <div class="absolute top-6 left-6 bg-white text-[#2c2c2c] text-xs font-medium shadow px-4 py-2 rounded-3xl">#${index + 1}</div>
+                    </div>
+                    <div class="px-6 pt-6 pb-8">
+                        <div class="text-xs uppercase">${product.category}</div>
+                        <div class="heading-font text-[22px]">${product.title}</div>
+                        <div class="flex justify-between items-center mt-8">
+                            <div class="font-light">$${product.price}</div>
+                            <button onclick="viewProductDetail(${product.id});event.stopImmediatePropagation()" 
+                                    class="text-xs border border-[#2c2c2c] px-6 py-3 rounded-3xl">DETAILS</button>
+                        </div>
+                    </div>
+                `
+                container.append(div)
+            })
+        }
+        
+        function populateNewArrivals() {
+            const container = document.getElementById("new-arrivals-grid")
+            container.innerHTML = ""
+            
+            products.forEach(product => {
+                const card = document.createElement("div")
+                card.className = "bg-white rounded-3xl overflow-hidden product-card"
+                card.innerHTML = `
+                    <div onclick="viewProductDetail(${product.id})" class="h-56 flex items-center justify-center bg-[#f9f5f0] text-6xl border-b">${product.emoji}</div>
+                    <div class="px-5 py-6">
+                        <div class="text-xs text-emerald-600">NEW</div>
+                        <div class="mt-1 font-medium">${product.title}</div>
+                        <div class="text-xs text-[#8c6d3f]">${product.category}</div>
+                        <div class="mt-6 flex justify-between items-center">
+                            <span class="text-xl">$${product.price}</span>
+                            <button onclick="event.stopImmediatePropagation();quickAddToCart(${product.id});" 
+                                    class="bg-[#2c2c2c] text-white text-xs px-5 h-8 rounded-3xl">ADD</button>
+                        </div>
+                    </div>
+                `
+                container.append(card)
+            })
+        }
+        
+        function viewProductDetail(id) {
+            const product = products.find(p => p.id === id)
+            if (!product) return
+            
+            const modal = document.getElementById("product-modal")
+            document.getElementById("modal-image").innerHTML = `<span class="text-8xl">${product.emoji}</span>`
+            document.getElementById("modal-category").innerText = product.category.toUpperCase()
+            document.getElementById("modal-title").innerText = product.title
+            document.getElementById("modal-price").innerText = "$" + product.price
+            document.getElementById("modal-price-bottom").innerText = "$" + product.price
+            document.getElementById("modal-description").innerText = product.description || "A premium digital product designed with love and attention to detail."
+            
+            modal.classList.remove("hidden")
+            modal.classList.add("flex")
+        }
+        
+        function quickAddToCart(id) {
+            const product = products.find(p => p.id === id)
+            if (!product) return
+            cart.push(product)
+            updateCartCount()
+            showToast(`${product.title} added to cart`)
+        }
+        
+        function addCurrentToCart() {
+            // For demo we add the first product
+            if (products.length > 0) {
+                cart.push(products[0])
+                updateCartCount()
+                showToast("Added to cart")
+            }
+        }
+        
+        function addBundleToCart(num) {
+            showToast("Bundle added to cart")
+            cart.push({
+                id: 999,
+                title: "Bundle " + (num || ""),
+                price: 59
+            })
+            updateCartCount()
+        }
+        
+        function updateCartCount() {
+            const countEl = document.getElementById("cart-count")
+            countEl.textContent = cart.length || "3"
+        }
+        
+        function toggleCart() {
+            const drawer = document.getElementById("cart-drawer")
+            const container = document.getElementById("cart-items")
+            
+            if (!drawer.classList.contains("hidden")) {
+                drawer.classList.add("hidden")
+                return
+            }
+            
+            container.innerHTML = ""
+            
+            if (cart.length === 0) {
+                // Demo items
+                container.innerHTML = `
+                    <div class="flex gap-4">
+                        <div class="w-16 h-16 bg-[#f9e8d3] rounded-2xl flex-none flex items-center justify-center text-4xl">🍝</div>
+                        <div class="flex-1">
+                            <div class="font-medium text-base">The Artisan Kitchen</div>
+                            <div class="text-xs text-[#777]">Digital cookbook • PDF</div>
+                            <div class="flex justify-between text-sm mt-6">
+                                <div>$22</div>
+                                <div onclick="this.parentElement.parentElement.parentElement.remove()" class="underline text-xs cursor-pointer">remove</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4 mt-8">
+                        <div class="w-16 h-16 bg-[#e0f0e0] rounded-2xl flex-none flex items-center justify-center text-4xl">📅</div>
+                        <div class="flex-1">
+                            <div class="font-medium text-base">Intentional Days</div>
+                            <div class="text-xs text-[#777]">Planner • 2025</div>
+                            <div class="flex justify-between text-sm mt-6">
+                                <div>$27</div>
+                                <div onclick="this.parentElement.parentElement.parentElement.remove()" class="underline text-xs cursor-pointer">remove</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            } else {
+                cart.forEach((item, i) => {
+                    const row = document.createElement("div")
+                    row.className = "flex gap-x-4"
+                    row.innerHTML = `
+                        <div class="text-4xl w-12">${item.emoji || "📦"}</div>
+                        <div class="flex-1">
+                            <div class="text-base">${item.title}</div>
+                            <div class="text-xs opacity-60">1 × $${item.price}</div>
+                        </div>
+                        <div class="font-light">$${(item.price * 1).toFixed(0)}</div>
+                    `
+                    container.append(row)
+                    if (i < cart.length - 1) {
+                        const hr = document.createElement("div")
+                        hr.className = "h-px bg-[#eee] my-6"
+                        container.append(hr)
+                    }
+                })
+            }
+            
+            const subtotal = cart.reduce((acc, cur) => acc + (cur.price || 30), 92)
+            document.getElementById("cart-subtotal").innerText = "$" + subtotal
+            
+            drawer.classList.remove("hidden")
+            drawer.classList.add("flex")
+        }
+        
+        function toggleSearch() {
+            const overlay = document.getElementById("search-overlay")
+            if (overlay.classList.contains("hidden")) {
+                overlay.classList.remove("hidden")
+                setTimeout(() => {
+                    document.getElementById("search-input").focus()
+                }, 300)
+            } else {
+                overlay.classList.add("hidden")
+            }
+        }
+        
+        function fakeSearch() {
+            showToast("No results. Try another term.")
+            setTimeout(() => {
+                document.getElementById("search-overlay").classList.add("hidden")
+            }, 800)
+        }
+        
+        function showToast(message) {
+            const toast = document.createElement("div")
+            toast.style.position = "fixed"
+            toast.style.bottom = "30px"
+            toast.style.left = "50%"
+            toast.style.transform = "translateX(-50%)"
+            toast.style.backgroundColor = "#2c2c2c"
+            toast.style.color = "#f9f5f0"
+            toast.style.padding = "16px 22px"
+            toast.style.borderRadius = "9999px"
+            toast.style.boxShadow = "0 10px 15px -3px rgb(0 0 0)"
+            toast.style.zIndex = "99999"
+            toast.style.whiteSpace = "nowrap"
+            toast.style.fontSize = "13px"
+            toast.style.opacity = "0"
+            toast.style.transition = "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+            toast.textContent = message
+            document.body.appendChild(toast)
+            
+            setTimeout(() => {
+                toast.style.opacity = "1"
+                toast.style.transform = "translateX(-50%) translateY(-10px)"
+            }, 10)
+            
+            setTimeout(() => {
+                toast.style.opacity = "0"
+                toast.style.transform = "translateX(-50%)"
+                setTimeout(() => toast.remove(), 300)
+            }, 2800)
+        }
+        
+        function claimFreebie() {
+            const input = document.getElementById("email-input")
+            const message = document.getElementById("freebie-message")
+            
+            if (input.value.trim() === "") {
+                input.classList.add("!border-red-300")
+                setTimeout(() => input.classList.remove("!border-red-300"), 1200)
+                return
+            }
+            
+            message.classList.remove("hidden")
+            input.value = ""
+            
+            setTimeout(() => {
+                message.classList.add("hidden")
+                showToast("Freebie sent to your email!")
+            }, 2200)
+        }
+        
+        function subscribeFooter() {
+            const input = document.getElementById("footer-email")
+            if (input.value.trim() !== "") {
+                showToast("Thank you for subscribing!")
+                input.value = ""
+            }
+        }
+        
+        function checkout() {
+            document.getElementById("cart-drawer").classList.add("hidden")
+            setTimeout(() => {
+                showToast("Thank you for your purchase! (demo)")
+                cart = []
+                updateCartCount()
+            }, 700)
+        }
+        
+        function visitPayhipStore() {
+            document.getElementById("payhip-modal").classList.add("hidden")
+            showToast("Redirecting to Payhip... (demo)")
+        }
+        
+        function smoothScrollTo(section) {
+            let targetY = 0
+            
+            switch(section) {
+                case "categories":
+                    targetY = 780
+                    break
+                case "featured":
+                    targetY = 1400
+                    break
+                case "bestsellers":
+                    targetY = 2100
+                    break
+                case "bundles":
+                    targetY = 2700
+                    break
+                case "about":
+                    targetY = 3500
+                    break
+                default:
+                    targetY = 800
+            }
+            
+            window.scrollTo({
+                top: targetY,
+                behavior: "smooth"
+            })
+            
+            // Close mobile menu if open
+            const mobileMenu = document.getElementById("mobile-menu")
+            if (!mobileMenu.classList.contains("hidden")) {
+                mobileMenu.classList.add("hidden")
+            }
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById("mobile-menu")
+            menu.classList.toggle("hidden")
+        }
+        
+        function filterByCategory(n) {
+            showToast("Filtered by category (demo)")
+            smoothScrollTo("featured")
+        }
+        
+        function showAllProducts() {
+            smoothScrollTo("featured")
+        }
+        
+        function fakeSocialClick() {
+            showToast("Follow us on social (demo)")
+        }
+        
+        function startCountdown() {
+            let timeLeft = 47 * 3600 + 12 * 60 + 9 // 47 hours, 12 minutes, 9 seconds
+            
+            const countdownEl = document.getElementById("countdown")
+            
+            setInterval(() => {
+                if (timeLeft <= 0) return
+                
+                timeLeft--
+                
+                const hours = Math.floor(timeLeft / 3600)
+                const minutes = Math.floor((timeLeft % 3600) / 60)
+                const seconds = timeLeft % 60
+                
+                countdownEl.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+            }, 1000)
+        }
+        
+        function handleMobileMenu() {
+            const btn = document.getElementById("mobile-menu-btn")
+            btn.addEventListener("click", function() {
+                const menu = document.getElementById("mobile-menu")
+                menu.classList.toggle("hidden")
+            })
+        }
+        
+        // Keyboard shortcuts
+        function handleKeys(e) {
+            if (e.metaKey && e.key === "k") {
+                e.preventDefault()
+                const overlay = document.getElementById("search-overlay")
+                if (overlay.classList.contains("hidden")) {
+                    toggleSearch()
+                } else {
+                    toggleSearch()
+                }
+            }
+        }
+        
+        // Main initialization
+        function initialize() {
+            initializeTailwind()
+            populateFeatured()
+            populateBestSellers()
+            populateNewArrivals()
+            updateCartCount()
+            startCountdown()
+            handleMobileMenu()
+            
+            // Demo add to cart after 2100ms
+            setTimeout(() => {
+                if (cart.length === 0) {
+                    cart = products.slice(0, 2)
+                    updateCartCount()
+                }
+            }, 2100)
+            
+            // Make navbar transparent to solid on scroll
+            window.addEventListener('scroll', () => {
+                const nav = document.querySelector('nav')
+                if (window.scrollY > 100) {
+                    nav.style.backgroundColor = 'rgba(255,255,255,0.97)'
+                    nav.style.backdropFilter = 'blur(12px)'
+                } else {
+                    nav.style.backgroundColor = 'white'
+                    nav.style.backdropFilter = 'none'
+                }
+            })
+            
+            // Keyboard
+            document.addEventListener('keydown', handleKeys)
+            
+            // Show a welcome toast
+            setTimeout(() => {
+                showToast("Welcome to ISAAC DIGITAL")
+            }, 2100)
+            
+            // Production ready note in console
+            console.log('%cISAAC DIGITAL storefront ready. Premium luxury aesthetic loaded.', 'font-family:monospace;font-size:10px;color:#d4af77')
+        }
+        
+        window.onload = initialize
+    </script>
+</body>
+</html>
